@@ -25,7 +25,7 @@ export const ForecastCityComponent = ({ dayCar, maxTempPromedio, minTempPromedio
             <Img src={`https://openweathermap.org/img/wn/${firstImage}.png`} alt="Weather Icon" />
          </DivI>
          <DivTemp>
-            <P>Max</P> <P>{maxTempPromedio}</P> <P>Min</P><P>{minTempPromedio}</P>
+            <P>Max</P> <P>{maxTempPromedio}°</P> <P>Min</P><P>{minTempPromedio}°</P>
          </DivTemp>
       </Wrapperdiv>
    )

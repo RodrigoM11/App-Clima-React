@@ -8,7 +8,7 @@ import context from './contextAuth';
 
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: 'https://apiweather-pied.vercel.app/graphql',
 });
 
 const cache = new InMemoryCache();

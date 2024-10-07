@@ -10,6 +10,7 @@ mode: 'development',
 output: {
 
 filename: 'app.bundle.js',
+path: path.resolve(__dirname, 'public'),
 publicPath: '/',
 
 },
@@ -19,14 +20,28 @@ devServer: {
 },
 
 plugins: [
-    new HtmlWebPackPlugin({
-       template:'src/index.html'
-    })
-   //  new WorkboxWebpackPlugin.GenerateSW({
-   //    swDest: '/service-worker.js',
-   //    clientsClaim: true,
-   //    skipWaiting: true 
-   //  })
+  new HtmlWebPackPlugin({
+    template: 'src/index.html'
+  }),
+  new WorkboxWebpackPlugin.GenerateSW({
+    swDest: 'service-worker.js', 
+    clientsClaim: true,
+    skipWaiting: true,
+    maximumFileSizeToCacheInBytes: 6 * 1024 * 1024, 
+    runtimeCaching: [
+      {
+        urlPattern: new RegExp('/app.bundle.js'),
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'cache-de-app-bundle',
+          cacheableResponse: {
+            statuses: [0, 200]
+          }
+        }
+      }
+    
+    ]
+  })
 ],
 
 module: {
@@ -43,7 +58,6 @@ module: {
             }
         }
      },
-
      {
       test: /\.(png|jpe?g|gif)$/i,
       use: [
@@ -56,15 +70,11 @@ module: {
         },
       ],
     },
-
-
     {
       test: /\.svg$/,
       use:['@svgr/webpack', 'url-loader'],
       
     },
-
-
   ]
 }
 } 
